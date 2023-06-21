@@ -1,0 +1,65 @@
+---
+
+#0 add user-ansible in www-data group for manage rights on mediawiki tree
+- name: "add user-ansible"
+  command:
+    usermod -a -G www-data user-ansible
+
+#1 Creation of directory for installaiton of Mediawiki files
+- name: "mediawiki directory"
+  file:
+    path: "{{mediawiki_directory}}"
+    owner: "www-data"
+    group: "www-data"
+    state: directory
+
+#2 Uncompress archive source file and format it without extension
+- name: "uncompress mediawiki archive"
+  unarchive:
+    src: "{{mediawiki_archive_url}}"
+    dest: "{{mediawiki_directory}}"
+    owner: "www-data"
+    group: "www-data"
+    remote_src: yes
+    #delete mediawiki-1.xx.x/ path
+    extra_opts: --transform=s/mediawiki-[0-9\.]*\///
+
+#3 Add write rights for www-data group
+- name: "add g+w on mediawiki directory"
+  command:
+    chmod -R g+w {{mediawiki_directory}}
+
+#4 Execute task with ansible user, move to the maintenance directory and execute
+# the configuration command if the file LocalSettings.php doesn't exit
+- name: "mediawiki configuration"
+  become: true
+  become_user: "user-ansible"
+  args:
+    creates: "{{mediawiki_directory}}/LocalSettings.php"
+    chdir: "{{mediawiki_maintenance_directory:}}"
+  command:
+    php install.php --scriptpath /{{mediawiki_name}}
+    --dbname mediawiki --lang fr
+    --dbuser {{mediawiki_db_user}}
+    --dbpass {{mediawiki_db_paswword}}
+    --pass {{mediawiki_admin_password}}
+    --dbserver {{mediawiki_db_host}}
+    --server http://http1
+    {{mediawiki_title}} {{mediawiki_admin_user}}
+  run_once: true
+  delegate_to: "{{item}}"
+  with_items: "{{goups.apache}}"
+
+#5 Execute task with ansible user, move to the maintenance directory and execute
+#the update database command one time
+- name: "mediawiki db update"
+  become: true
+  become_user: "user-ansible"
+  command:
+    php update.php --quick
+  args:
+    chdir: "{{mediawiki_maintenance_directory}}"
+  # the update need to run one time
+  run_once: true
+  register: resultat
+  changed_when: "' ...done.' in resultat.stdout"
