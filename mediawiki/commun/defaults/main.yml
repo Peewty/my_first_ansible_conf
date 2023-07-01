@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 
 # database
@@ -6,11 +5,23 @@ mediawiki_db_name: "mediawiki"
 
 #user and password
 mediawiki_db_user: "mediawiki"
-mediawiki_db_paswword: [CHANGE_ME]
+mediawiki_db_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          62363334616334386330333966313231393563366637333430363461643064386139383538623736
+          6433346636623131303032393131633932613266633561340a666337363334393639383136646630
+          31316666303537643264633436323434643530323139333565666530346366396533333338376565
+          6461643966333266300a653861643836326239363563356539303638663563643135376337663137
+          3764
 
 #User admin and password
 mediawiki_admin_user: "admin"
-mediawiki_admin_password: [CHANGE_ME]
+mediawiki_admin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35386337343231646562633963366637346634333537306230383162323133306330393662663938
+          3464313631326236376530316163353862383038313838330a343338616433656634396365303836
+          38663162633564333834346530393631633531366438306462626632356432313135616565633162
+          3633373635646332650a346135333533356266373432363665323264393962306635303135633763
+          3230
 
 #nom du mediawiki et son titre
 mediawiki_name: "mediawiki"
@@ -26,33 +37,4 @@ mediawiki_maintenance_directory: "{{mediawiki_directory}}/maintenance"
 mediawiki_db_host: "{{group.db.0}}"
 
 #l'url des sources mediawiki
-=======
----
-
-# database
-mediawiki_db_name: "mediawiki"
-
-#user and password
-mediawiki_db_user: "mediawiki"
-mediawiki_db_paswword: [CHANGE_ME]
-
-#User admin and password
-mediawiki_admin_user: "admin"
-mediawiki_admin_password: [CHANGE_ME]
-
-#nom du mediawiki et son titre
-mediawiki_name: "mediawiki"
-mediawiki_title: "My best mediawiki !"
-
-#Installation directory
-mediawiki_directory: "/var/www/html/{{mediawiki_name}}"
-
-#Maintenance directory
-mediawiki_maintenance_directory: "{{mediawiki_directory}}/maintenance"
-
-#defines the first node of mariadb group
-mediawiki_db_host: "{{group.db.0}}"
-
-#l'url des sources mediawiki
->>>>>>> 38d9704e1ab32eae2d70a8bc67d71e03a808e0b3
 mediawiki_archive_url: "https://releases.wikimedia.org/mediawiki/1.37/mediawiki-1.37.1.tar.gz"

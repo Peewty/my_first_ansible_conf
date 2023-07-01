@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 
 - name: "mediawiki database"
@@ -12,19 +11,4 @@
     password: "{{mediawiki_db_paswword}}"
     priv: "{{mediawiki_db_name}}.*:ALL"
     host: "http1"
-=======
----
-
-- name: "mediawiki database"
-  community.mysql.mysql_db:
-    name: "{{mediawiki_db_name}}"
-    state: present
-
-- name: "mediawiki user and privileges"
-  community.mysql.mysql_user:
-    name: "{{mediawiki_db_user}}"
-    password: "{{mediawiki_db_paswword}}"
-    priv: "{{mediawiki_db_name}}.*:ALL"
-    host: "http1"
->>>>>>> 38d9704e1ab32eae2d70a8bc67d71e03a808e0b3
     state: present

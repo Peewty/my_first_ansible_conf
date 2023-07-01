@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 dependencies:
-=======
-dependencies:
->>>>>>> 38d9704e1ab32eae2d70a8bc67d71e03a808e0b3
   - role: "mediawiki/commun"

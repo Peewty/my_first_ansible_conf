@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 
 # Installation of server package mariadb and they python extension
@@ -23,30 +22,4 @@
 - name: "restart mariadb"
   service:
     name: "mariadb"
-=======
----
-
-# Installation of server package mariadb and they python extension
-- name: "mariadb-server installation"
-  apt:
-    name: "mariadb-server,python3-mysqldb"
-    state: "present"
-
-#activate MariaDB service
-- name: "start mariadb service"
-  service:
-    name: "mariadb"
-    state: "started"
-    enabled: yes
-
-#activate all listen port IPv4
-- name: "change 50-server.cnf"
-  command:
-    /usr/bin/sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
-
-#Restart of mariadb
-- name: "restart mariadb"
-  service:
-    name: "mariadb"
->>>>>>> 38d9704e1ab32eae2d70a8bc67d71e03a808e0b3
     state: restarted

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 
 #1 this task install php with they extensions
@@ -7,14 +6,4 @@
     name: "php,php-mysql, php-xml,php-mbstring, php-gd,php-intl"
     state: latest
   changed_when: yes
-=======
----
-
-#1 this task install php with they extensions
-- name: "install php packages"
-  apt: 
-    name: "php,php-mysql, php-xml,php-mbstring, php-gd,php-intl"
-    state: latest
-  changed_when: yes
->>>>>>> 38d9704e1ab32eae2d70a8bc67d71e03a808e0b3
   notify: [ "apache restart" ]
