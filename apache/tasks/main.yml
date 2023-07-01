@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 
 #1. Cette tâche permet d’installer Apache (httpd) à l’aide du module apt
@@ -16,4 +17,24 @@
 #3. Cette tâche fait appel à un autre fichier de configuration pour installer PHP. Elle est exécutée uniquement si la variable php_install est à vraie (par défaut, elle est à faux)
 - name: "install php packages"
   include: "php-install.yml"
+=======
+---
+
+#1. Cette tâche permet d’installer Apache (httpd) à l’aide du module apt
+- name: "apache installation"
+  apt:
+    name: "apache2"
+    state: "present"
+
+#2. Cette tâche active le service Apache
+- name: "apache service activation"
+  service:
+    name: "apache2"
+    state: "started"
+    enabled: yes
+
+#3. Cette tâche fait appel à un autre fichier de configuration pour installer PHP. Elle est exécutée uniquement si la variable php_install est à vraie (par défaut, elle est à faux)
+- name: "install php packages"
+  include: "php-install.yml"
+>>>>>>> 38d9704e1ab32eae2d70a8bc67d71e03a808e0b3
   when: php_install|default(False)|bool

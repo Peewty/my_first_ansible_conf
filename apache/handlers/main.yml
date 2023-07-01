@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 ---
 # handlers file for apache
 - name: "apache restart"
   service:
     name: "apache2"
+=======
+---
+# handlers file for apache
+- name: "apache restart"
+  service:
+    name: "apache2"
+>>>>>>> 38d9704e1ab32eae2d70a8bc67d71e03a808e0b3
     state: "restarted"
