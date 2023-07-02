@@ -9,7 +9,7 @@
 - name: "mediawiki directory"
   file:
     path: "{{mediawiki_directory}}"
-    owner: "www-data"
+    owner: "user-ansible"
     group: "www-data"
     state: directory
 
@@ -18,7 +18,7 @@
   unarchive:
     src: "{{mediawiki_archive_url}}"
     dest: "{{mediawiki_directory}}"
-    owner: "www-data"
+    owner: "user-ansible"
     group: "www-data"
     remote_src: yes
     #delete mediawiki-1.xx.x/ path
@@ -36,19 +36,19 @@
   become_user: "user-ansible"
   args:
     creates: "{{mediawiki_directory}}/LocalSettings.php"
-    chdir: "{{mediawiki_maintenance_directory:}}"
+    chdir: "{{mediawiki_maintenance_directory}}"
   command:
     php install.php --scriptpath /{{mediawiki_name}}
     --dbname mediawiki --lang fr
     --dbuser {{mediawiki_db_user}}
-    --dbpass {{mediawiki_db_paswword}}
+    --dbpass {{mediawiki_db_password}}
     --pass {{mediawiki_admin_password}}
     --dbserver {{mediawiki_db_host}}
     --server http://http1
     {{mediawiki_title}} {{mediawiki_admin_user}}
   run_once: true
   delegate_to: "{{item}}"
-  with_items: "{{goups.apache}}"
+  with_items: "{{groups.apache}}"
 
 #5 Execute task with ansible user, move to the maintenance directory and execute
 #the update database command one time
