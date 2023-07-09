@@ -1,0 +1,11 @@
+---
+- name: "Request in database"
+  hosts: bdd1
+  gather_facts: no
+  tasks:
+    - name: "count number of page in Wiki"
+      count_page:
+        db_name: "mediawiki"
+        request: "select count(*) from page;"
+      register: resultat
+    - debug: var=resultat
